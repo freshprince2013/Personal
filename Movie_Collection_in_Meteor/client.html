@@ -1,0 +1,81 @@
+<head>
+  <title>Managing my movie database</title>
+</head>
+
+<body>
+    <article>
+      <header>
+        {{> header}}
+      </header>
+
+      <section>
+          {{> record}}
+          {{> table}}
+      </section>
+
+      <footer>
+        <div class="copyright">
+            Copyright &copy; by Satish Sekar. All rights reserved. Powered by Central One.
+        </div>
+      </footer>
+    </article>
+</body>
+
+<template name="header">
+    <div class="caption floatLeft">My Movie Collection</div>
+    <div class="share floatRight">
+        <div class="floatLeft">Share on:</div>
+        <a href="{{shareTwitter}}" target="_blank" class="shareLink"><span class="twitter floatLeft"></span></a>
+        <a href="{{shareFacebook}}" target="_blank" class="shareLink"><span class="facebook floatLeft"></span></a>
+        <a href="{{shareGPlus}}" target="_blank" class="shareLink"><span class="gplus floatLeft"></span></a>
+    </div>
+</template>
+
+<template name="record">
+    <div id="top" class="secBlock clearAll">
+        {{#each filters}}
+        <div class="filterBlock floatLeft">
+            <div class="floatLeft">{{filter.title}}</div>
+            <div class="floatLeft {{filter.name}}">
+                {{#if isMovieInputText filter.type}}
+                    <input type="{{filter.type}}" name="{{filter.name}}" value="" />
+                {{else}}
+                    <select>
+                        {{#each genres}}
+                            <option value="{{genre.value}}">{{genre.text}}</option>
+                        {{/each}}
+                    </select>
+                {{/if}}
+            </div>
+        </div>
+        {{/each}}
+        <div class="floatLeft">
+            <div>
+                <button class="textAlignCenter addupdate">Add/Update Movie</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="table">
+    <div id="bottom" class="secBlock">
+        <div id="table">
+            <div class="row header floatLeft clearAll">
+                <div class="title {{sortOrder}}"><span class="floatLeft">Movie Title</span><span class="floatRight"></span></div>
+                <div class="year {{sortOrder}}"><span class="floatLeft">Release Year</span><span class="floatRight"></span></div>
+                <div class="genre {{sortOrder}}"><span class="floatLeft">Genre</span><span class="floatRight"></span></div>
+                <div>Edit</div>
+                <div>Delete</div>
+            </div>
+            {{#each movies}}
+            <div class="row floatLeft clearAll">
+                <div>{{movie.title}}</div>
+                <div>{{movie.year}}</div>
+                <div>{{movie.genre}}</div>
+                <div><button class="edit">Edit</button></div>
+                <div><button class="delete">Delete</button></div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</template>
